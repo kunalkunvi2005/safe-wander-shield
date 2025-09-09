@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { AlertTriangle, Phone, MessageSquare, MapPin, Mic } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const EmergencyPanel = () => {
   const [isEmergencyActive, setIsEmergencyActive] = useState(false);
@@ -16,23 +17,62 @@ const EmergencyPanel = () => {
     { name: "Emergency Contact", number: "+91 98765 43210", type: "personal" }
   ];
 
-  const activateEmergency = () => {
+  const activateEmergency = async () => {
     setIsEmergencyActive(true);
     setEmergencyTimer(Date.now());
     
-    toast({
-      title: "🚨 Emergency Alert Activated",
-      description: "Location shared with authorities. Help is on the way!",
-      variant: "destructive",
-    });
+    try {
+      // Get current location if available
+      let latitude, longitude;
+      if (navigator.geolocation) {
+        try {
+          const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 });
+          });
+          latitude = position.coords.latitude;
+          longitude = position.coords.longitude;
+        } catch (error) {
+          console.log('Location not available:', error);
+        }
+      }
 
-    // Simulate emergency response
-    setTimeout(() => {
-      toast({
-        title: "📍 Location Shared",
-        description: "Your location has been sent to emergency contacts.",
+      // Call SOS edge function
+      const { data, error } = await supabase.functions.invoke('sos-alert', {
+        body: {
+          latitude,
+          longitude,
+          message: 'Emergency SOS alert triggered from safety app'
+        }
       });
-    }, 2000);
+
+      if (error) {
+        throw error;
+      }
+
+      toast({
+        title: "🚨 Emergency Alert Activated",
+        description: `Location shared with authorities and ${data.notifiedContacts || 0} emergency contacts. Help is on the way!`,
+        variant: "destructive",
+      });
+
+      // Show follow-up toast
+      setTimeout(() => {
+        toast({
+          title: "📍 Location Shared",
+          description: "Your location has been sent to emergency contacts.",
+        });
+      }, 2000);
+      
+    } catch (error) {
+      console.error('SOS Alert failed:', error);
+      toast({
+        title: "❌ Emergency Alert Failed",
+        description: "Unable to process emergency alert. Please try again or call emergency services directly.",
+        variant: "destructive",
+      });
+      setIsEmergencyActive(false);
+      setEmergencyTimer(0);
+    }
   };
 
   const cancelEmergency = () => {

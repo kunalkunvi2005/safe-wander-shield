@@ -14,6 +14,198 @@ export type Database = {
   }
   public: {
     Tables: {
+      alerts: {
+        Row: {
+          created_at: string
+          id: string
+          is_read: boolean
+          message: string
+          priority: Database["public"]["Enums"]["alert_priority"]
+          type: Database["public"]["Enums"]["alert_type"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message: string
+          priority?: Database["public"]["Enums"]["alert_priority"]
+          type: Database["public"]["Enums"]["alert_type"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          priority?: Database["public"]["Enums"]["alert_priority"]
+          type?: Database["public"]["Enums"]["alert_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      emergency_contacts: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          phone: string
+          relationship: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          phone: string
+          relationship?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          phone?: string
+          relationship?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      geofences: {
+        Row: {
+          alert_message: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean
+          name: string
+          polygon: Json
+          risk_level: number
+          type: Database["public"]["Enums"]["geofence_type"]
+          updated_at: string
+        }
+        Insert: {
+          alert_message?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          polygon: Json
+          risk_level?: number
+          type: Database["public"]["Enums"]["geofence_type"]
+          updated_at?: string
+        }
+        Update: {
+          alert_message?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          polygon?: Json
+          risk_level?: number
+          type?: Database["public"]["Enums"]["geofence_type"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      incidents: {
+        Row: {
+          address: string | null
+          assigned_officer: string | null
+          created_at: string
+          e_fir_number: string | null
+          evidence: Json | null
+          id: string
+          latitude: number | null
+          longitude: number | null
+          occurred_at: string
+          resolution: string | null
+          status: Database["public"]["Enums"]["incident_status"]
+          type: Database["public"]["Enums"]["incident_type"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          assigned_officer?: string | null
+          created_at?: string
+          e_fir_number?: string | null
+          evidence?: Json | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          occurred_at?: string
+          resolution?: string | null
+          status?: Database["public"]["Enums"]["incident_status"]
+          type: Database["public"]["Enums"]["incident_type"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          assigned_officer?: string | null
+          created_at?: string
+          e_fir_number?: string | null
+          evidence?: Json | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          occurred_at?: string
+          resolution?: string | null
+          status?: Database["public"]["Enums"]["incident_status"]
+          type?: Database["public"]["Enums"]["incident_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      location_history: {
+        Row: {
+          accuracy: number | null
+          created_at: string
+          heading: number | null
+          id: string
+          latitude: number
+          longitude: number
+          recorded_at: string
+          speed: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          accuracy?: number | null
+          created_at?: string
+          heading?: number | null
+          id?: string
+          latitude: number
+          longitude: number
+          recorded_at?: string
+          speed?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          accuracy?: number | null
+          created_at?: string
+          heading?: number | null
+          id?: string
+          latitude?: number
+          longitude?: number
+          recorded_at?: string
+          speed?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -94,7 +286,19 @@ export type Database = {
       }
     }
     Enums: {
+      alert_priority: "low" | "medium" | "high" | "critical"
+      alert_type:
+        | "geofence"
+        | "weather"
+        | "safety_update"
+        | "check_in"
+        | "battery_low"
+        | "sos"
+        | "system"
       app_role: "tourist" | "authority" | "admin"
+      geofence_type: "restricted" | "high_risk" | "safe"
+      incident_status: "active" | "resolved" | "investigating"
+      incident_type: "sos" | "geofence" | "anomaly"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -222,7 +426,20 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      alert_priority: ["low", "medium", "high", "critical"],
+      alert_type: [
+        "geofence",
+        "weather",
+        "safety_update",
+        "check_in",
+        "battery_low",
+        "sos",
+        "system",
+      ],
       app_role: ["tourist", "authority", "admin"],
+      geofence_type: ["restricted", "high_risk", "safe"],
+      incident_status: ["active", "resolved", "investigating"],
+      incident_type: ["sos", "geofence", "anomaly"],
     },
   },
 } as const
