@@ -262,11 +262,8 @@ const Index = () => {
               <span className="font-bold">Smart Tourist Safety System</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Hackathon Demonstration - Advanced Safety Monitoring Solution
+              © 2024 Smart Tourist Safety System. All rights reserved.
             </p>
-            <div className="text-xs text-muted-foreground">
-              Built with React, TypeScript, AI, and Blockchain Technologies
-            </div>
           </div>
         </div>
       </footer>
