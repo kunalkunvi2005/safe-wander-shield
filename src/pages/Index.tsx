@@ -76,129 +76,134 @@ const Index = () => {
 
         {/* Features Section */}
         <section className="space-y-12">
-          <div className="text-center space-y-4">
-            <h3 className="text-3xl font-bold">Comprehensive Safety Features</h3>
+          <div className="text-center space-y-4 animate-fade-in">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+              Tourist Safety Features
+            </h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Advanced technology stack ensuring 360-degree safety coverage for tourists and authorities
+              Advanced technology stack ensuring comprehensive safety coverage for modern travelers
             </p>
           </div>
 
-          <Tabs defaultValue="tourist" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
-              <TabsTrigger value="tourist">Tourist Features</TabsTrigger>
-              <TabsTrigger value="authority">Authority Features</TabsTrigger>
-            </TabsList>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="safety-card hover-scale animate-fade-in group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <CardHeader className="relative z-10">
+                <CardTitle className="flex items-center gap-2">
+                  <div className="p-2 rounded-full bg-gradient-to-br from-primary to-primary/80 text-white animate-pulse">
+                    <Shield className="w-5 h-5" />
+                  </div>
+                  Digital ID & Tracking
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+                    Blockchain-secured digital identity
+                  </li>
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+                    Real-time GPS location tracking
+                  </li>
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+                    Automated check-in reminders
+                  </li>
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+                    Travel itinerary integration
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
 
-            <TabsContent value="tourist" className="mt-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="safety-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Shield className="w-5 h-5 text-primary" />
-                      Digital ID & Tracking
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Blockchain-secured digital identity</li>
-                      <li>• Real-time GPS location tracking</li>
-                      <li>• Automated check-in reminders</li>
-                      <li>• Travel itinerary integration</li>
-                    </ul>
-                  </CardContent>
-                </Card>
+            <Card className="safety-card hover-scale animate-fade-in group relative overflow-hidden" style={{animationDelay: '0.1s'}}>
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <CardHeader className="relative z-10">
+                <CardTitle className="flex items-center gap-2">
+                  <div className="p-2 rounded-full bg-gradient-to-br from-secondary to-secondary/80 text-white animate-pulse">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  Geo-fencing & Alerts
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></div>
+                    Smart geo-fence boundaries
+                  </li>
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></div>
+                    Risk zone identification
+                  </li>
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></div>
+                    Weather & safety alerts
+                  </li>
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></div>
+                    Local guidelines & tips
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
 
-                <Card className="safety-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <MapPin className="w-5 h-5 text-secondary" />
-                      Geo-fencing & Alerts
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Smart geo-fence boundaries</li>
-                      <li>• Risk zone identification</li>
-                      <li>• Weather & safety alerts</li>
-                      <li>• Local guidelines & tips</li>
-                    </ul>
-                  </CardContent>
-                </Card>
+            <Card className="safety-card hover-scale animate-fade-in group relative overflow-hidden border-2 border-red-500/20" style={{animationDelay: '0.2s'}}>
+              <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 via-transparent to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <CardHeader className="relative z-10">
+                <CardTitle className="flex items-center gap-2">
+                  <div className="p-2 rounded-full bg-gradient-to-br from-red-500 to-orange-500 text-white animate-pulse">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  Emergency Response
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                    One-touch SOS button
+                  </li>
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                    Automatic location sharing
+                  </li>
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                    Voice message recording
+                  </li>
+                  <li className="flex items-center gap-2 group-hover:text-foreground transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                    Emergency contact alerts
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
 
-                <Card className="safety-card border-danger/20">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Users className="w-5 h-5 text-danger" />
-                      Emergency Response
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• One-touch SOS button</li>
-                      <li>• Automatic location sharing</li>
-                      <li>• Voice message recording</li>
-                      <li>• Emergency contact alerts</li>
-                    </ul>
-                  </CardContent>
-                </Card>
+          {/* Feature Highlights */}
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { icon: Shield, title: "24/7 Monitoring", desc: "Round-the-clock safety", color: "from-blue-500 to-cyan-500" },
+              { icon: MapPin, title: "Smart Alerts", desc: "Location-based warnings", color: "from-green-500 to-emerald-500" },
+              { icon: Users, title: "Emergency Network", desc: "Instant response system", color: "from-red-500 to-pink-500" },
+              { icon: Smartphone, title: "Mobile First", desc: "Optimized for mobile", color: "from-purple-500 to-indigo-500" }
+            ].map((feature, index) => (
+              <div 
+                key={index} 
+                className="text-center p-6 rounded-2xl bg-gradient-to-br from-background to-muted/50 border hover-scale animate-fade-in group"
+                style={{animationDelay: `${0.3 + index * 0.1}s`}}
+              >
+                <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${feature.color} mx-auto mb-4 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon className="w-8 h-8" />
+                </div>
+                <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors">{feature.title}</h4>
+                <p className="text-sm text-muted-foreground">{feature.desc}</p>
               </div>
-            </TabsContent>
-
-            <TabsContent value="authority" className="mt-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="safety-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Monitor className="w-5 h-5 text-primary" />
-                      Real-time Monitoring
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Live tourist location tracking</li>
-                      <li>• Interactive heat maps</li>
-                      <li>• Safety score analytics</li>
-                      <li>• Incident alert dashboard</li>
-                    </ul>
-                  </CardContent>
-                </Card>
-
-                <Card className="safety-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Shield className="w-5 h-5 text-secondary" />
-                      Case Management
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Automated E-FIR generation</li>
-                      <li>• Digital evidence logging</li>
-                      <li>• Response time tracking</li>
-                      <li>• Case status management</li>
-                    </ul>
-                  </CardContent>
-                </Card>
-
-                <Card className="safety-card">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Users className="w-5 h-5 text-primary" />
-                      Analytics & Reports
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Tourist flow patterns</li>
-                      <li>• Safety trend analysis</li>
-                      <li>• Risk zone identification</li>
-                      <li>• Performance metrics</li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-          </Tabs>
+            ))}
+          </div>
         </section>
 
         {/* Technology Stack */}
