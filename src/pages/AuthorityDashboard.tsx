@@ -1,17 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Shield, Users, AlertTriangle, MapPin, Clock, Phone, 
-  FileText, TrendingUp, Search, Filter 
+  FileText, TrendingUp, Search, Filter, LogOut, AlertCircle
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useAuth } from "@/hooks/useAuth";
 
 const AuthorityDashboard = () => {
+  const { user, loading, signOut, hasRole } = useAuth();
+  const navigate = useNavigate();
   const [activeIncidents, setActiveIncidents] = useState(3);
   const [totalTourists, setTotalTourists] = useState(127);
+
+  useEffect(() => {
+    if (!loading && (!user || !hasRole('authority') && !hasRole('admin'))) {
+      navigate('/auth');
+    }
+  }, [user, loading, hasRole, navigate]);
   
   const mockTourists = [
     {
@@ -84,12 +95,63 @@ const AuthorityDashboard = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-primary/5 flex items-center justify-center">
+        <Card className="safety-card p-8">
+          <div className="text-center space-y-4">
+            <Shield className="w-12 h-12 text-primary mx-auto animate-pulse" />
+            <p className="text-lg font-medium">Verifying authority access...</p>
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!user || (!hasRole('authority') && !hasRole('admin'))) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-primary/5 flex items-center justify-center p-4">
+        <Card className="safety-card max-w-md w-full">
+          <CardHeader className="text-center">
+            <Shield className="w-16 h-16 text-danger mx-auto mb-4" />
+            <CardTitle className="text-2xl">Access Denied</CardTitle>
+          </CardHeader>
+          <CardContent className="text-center space-y-4">
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                Authority credentials required to access this dashboard.
+              </AlertDescription>
+            </Alert>
+            <p className="text-muted-foreground">
+              This portal is restricted to authorized personnel only.
+            </p>
+            <Button onClick={() => navigate('/auth')} className="w-full">
+              Go to Login
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-primary/5 p-6">
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold mb-2">Authority Control Center</h1>
-        <p className="text-muted-foreground">Real-time tourist safety monitoring and incident response</p>
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">Authority Control Center</h1>
+          <p className="text-muted-foreground">Real-time tourist safety monitoring and incident response</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={() => navigate('/')}>
+            Home
+          </Button>
+          <Button variant="outline" size="sm" onClick={signOut}>
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
+          </Button>
+        </div>
       </div>
 
       {/* KPI Cards */}

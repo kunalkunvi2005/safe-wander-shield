@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Shield, Phone, AlertTriangle, CheckCircle2, Clock } from "lucide-react";
+import { MapPin, Shield, Phone, AlertTriangle, CheckCircle2, Clock, LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import EmergencyPanel from "./EmergencyPanel";
 import LocationTracker from "./LocationTracker";
 
@@ -13,6 +15,8 @@ interface SafetyScore {
 }
 
 const SafetyDashboard = () => {
+  const { user, loading, signOut } = useAuth();
+  
   const [currentLocation, setCurrentLocation] = useState({
     lat: 25.5788,
     lng: 91.8933,
@@ -54,14 +58,68 @@ const SafetyDashboard = () => {
     }
   ];
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-primary/5 flex items-center justify-center">
+        <Card className="safety-card p-8">
+          <div className="text-center space-y-4">
+            <Shield className="w-12 h-12 text-primary mx-auto animate-pulse" />
+            <p className="text-lg font-medium">Loading your safety dashboard...</p>
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-primary/5 flex items-center justify-center p-4">
+        <Card className="safety-card max-w-md w-full">
+          <CardHeader className="text-center">
+            <Shield className="w-16 h-16 text-primary mx-auto mb-4" />
+            <CardTitle className="text-2xl">Tourist Safety Dashboard</CardTitle>
+          </CardHeader>
+          <CardContent className="text-center space-y-4">
+            <p className="text-muted-foreground">
+              Please login to access your personal safety monitoring dashboard and emergency features.
+            </p>
+            <div className="space-y-2">
+              <Link to="/auth" className="w-full">
+                <Button size="lg" className="w-full bg-gradient-to-r from-primary to-secondary text-white">
+                  Login to Dashboard
+                </Button>
+              </Link>
+              <Link to="/" className="w-full">
+                <Button variant="outline" size="lg" className="w-full">
+                  Back to Home
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-primary/5 p-4 space-y-6">
       {/* Header */}
-      <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-          Tourist Safety Monitor
-        </h1>
-        <p className="text-muted-foreground">Real-time safety tracking and emergency assistance</p>
+      <div className="flex items-center justify-between">
+        <div className="text-center space-y-2 flex-1">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            Tourist Safety Monitor
+          </h1>
+          <p className="text-muted-foreground">Real-time safety tracking and emergency assistance</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Link to="/">
+            <Button variant="outline" size="sm">Home</Button>
+          </Link>
+          <Button variant="outline" size="sm" onClick={signOut}>
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
+          </Button>
+        </div>
       </div>
 
       {/* Safety Score Card */}
