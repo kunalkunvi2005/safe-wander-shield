@@ -1,12 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { AlertTriangle, Phone, MessageSquare, MapPin, Mic } from "lucide-react";
+import { AlertTriangle, Phone, MessageSquare, Mic } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
-const EmergencyPanel = () => {
+const EmergencyPanel: React.FC = () => {
   const [isEmergencyActive, setIsEmergencyActive] = useState(false);
   const [emergencyTimer, setEmergencyTimer] = useState(0);
   const { toast } = useToast();
